@@ -1,8 +1,3 @@
-/*
-$('.box').animate({
-  left: '500px'
-}),500;
-*/
 (function(){
   var date = new Date();
   var days = [
@@ -17,6 +12,4 @@ $('.box').animate({
   document.getElementById('russian').innerHTML = days[date.getDay()][0];
   document.getElementById('german').innerHTML  = days[date.getDay()][1];
   document.getElementById('chinese').innerHTML = days[date.getDay()][2];
-
-  console.log('ayy lmao');
 })();
