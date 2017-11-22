@@ -1,5 +1,6 @@
 (function(){
   var date = new Date();
+  var numb = date.getUTCDate();
   var days = [
     ["Воскресенье","lundi/sonntag","星期日/xīng qí rì"],     //sunday
     ["Понедельник","ponedel'nik/montag","星期一/xīng qí yī"],   //monday
@@ -12,4 +13,5 @@
   document.getElementById('russian').innerHTML = days[date.getDay()][0];
   document.getElementById('german').innerHTML  = days[date.getDay()][1];
   document.getElementById('chinese').innerHTML = days[date.getDay()][2];
+  document.getElementById('num').innerHTML = day;
 })();
