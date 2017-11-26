@@ -56,7 +56,7 @@ img{
 div#days{
   position: relative;
   float:left;
-  width:50%;
+  width:100%;
 }
 p.main{
   font-size: 30px;

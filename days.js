@@ -1,17 +1,70 @@
 (function(){
-  var date = new Date();
-  var numb = date.getUTCDate();
-  var days = [
-    ["Воскресенье","lundi/sonntag","星期日/xīng qí rì"],     //sunday
-    ["Понедельник","ponedel'nik/montag","星期一/xīng qí yī"],   //monday
-    ["Вторник","mardi/dienstag","星期二/xīng qí'èr"],         //tuesday
-    ["Среда","mercredi/mittwoch","星期三/xīng qí sān"],            //wednesday
-    ["Четверг","jeudi/donnerstag","星期四/xīng qí sì"],      //thursday
-    ["Пятница","vendredi/freitag","星期五/xīng qí wǔ"],        //friday
-    ["Суббота","samedi/samstag","星期六/xīng qí liù"]          //saturday
+  var date  = new Date();
+
+  var numb  = date.getUTCDate();//day number
+  var month = date.getMonth();//month number
+  var day   = date.getDay();//day number 0-6
+
+  var days  = [
+    ["Воскресенье","星期日"],//sunday
+    ["Понедельник","星期一"],//monday
+    ["Вторник","星期二"],    //tuesday
+    ["Среда","星期三"],      //wednesday
+    ["Четверг","星期四"],    //thursday
+    ["Пятница","星期五"],    //friday
+    ["Суббота","星期六"]     //saturday
   ];
-  document.getElementById('russian').innerHTML = days[date.getDay()][0];
-  document.getElementById('german').innerHTML  = days[date.getDay()][1];
-  document.getElementById('chinese').innerHTML = days[date.getDay()][2];
-  document.getElementById('num').innerHTML = day;
+
+  var months = [
+    ["январь","一月"],
+    ["февраль","二月"],
+    ["март","三月"],
+    ["апрель","四月"]
+    ["май","五月"],
+    ["июнь","六月"],
+    ["июль","七月"],
+    ["август","八月"],
+    ["сентябрь","九月"],
+    ["октябрь","十月"],
+    ["ноябрь","十一月"],
+    ["декабрь","十二月"]
+  ];
+
+  var numbers = [
+    ["один","一"],
+    ["два","二"],
+    ["три","三"],
+    ["четыре","四"],
+    ["пять","五"],
+    ["шесть","六"],
+    ["семь","七"],
+    ["восемь","八"],
+    ["девять","九"],
+    ["десять","十"],
+    ["одиннадцать","十一"],
+    ["двенадцать","十二"],
+    ["тринадцать","十三"],
+    ["четырнадцать","十四"],
+    ["пятьнадцать","十五"],
+    ["шестнадцать","十六"],
+    ["семнадцать","十七"],
+    ["восемнадцать","十八"],
+    ["девятнадцать","十九"],
+    ["двадцать","二十"],
+    ["двадцать один","二十一"],
+    ["двадцать два","二十二"],
+    ["двадцать три","二十三"],
+    ["двадцать четыре","二十四"],
+    ["двадцать пять","二十五"],
+    ["двадцать шесть","二十七"],
+    ["двадцать семь","二十七"],
+    ["двадцать восемь","二十八"],
+    ["двадцать девять","二十九"],
+    ["тридцать","三十"],
+    ["тридцать один","三十一"]
+  ];
+
+  document.getElementById('russian').innerHTML = days[day][0]+" "+numbers[numb][0]+" "+months[month][0];
+  document.getElementById('chinese').innerHTML = days[day][1]+numbers[numb][1]+months[month][1];
+  document.getElementById('date').innerHTML = numb+"/"+month+"/2017";
 })();
