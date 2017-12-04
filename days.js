@@ -1,13 +1,9 @@
-//(function(){
+(function(){
   var date  = new Date();
 
   var numb  = date.getUTCDate();//day number
   var month = date.getMonth();//month number
   var day   = date.getDay();//day number 0-6
-
-  console.log(numb);
-  console.log(month);
-  console.log(day);
 
   var days = [
     ["Воскресенье","星期日"],//sunday
@@ -69,6 +65,6 @@
   ];
 
   document.getElementById('russian').innerHTML = days[day][0]+" "+numbers[numb][0]+" "+months[month][0];
-  document.getElementById('chinese').innerHTML = days[day][1]+numbers[numb][1]+months[month][1];
-  document.getElementById('date').innerHTML = numb+"/"+month+"/2017";
-//})();
+  document.getElementById('chinese').innerHTML = months[month][1]+numbers[numb][1]+"日"+days[day][1];
+  document.getElementById('date').innerHTML = numb+"/"+(month+1)+"/2017";
+})();
