@@ -64,8 +64,8 @@
     ["тридцать один","三十一","shí"]
   ];
 
-  document.getElementById('russian').innerHTML = days[day][0]+" "+numbers[numb][0]+" "+months[month][0];
-  document.getElementById('chinese').innerHTML = months[month][1]+numbers[numb][1]+"日"+days[day][1];
-  document.getElementById('pinyin').innerHTML = months[month][2]+" "+numbers[numb][2]+" rì "+days[day][2];
+  document.getElementById('russian').innerHTML = days[day][0]+" "+numbers[numb-1][0]+" "+months[month][0];
+  document.getElementById('chinese').innerHTML = months[month][1]+numbers[numb-1][1]+"日"+days[day][1];
+  document.getElementById('pinyin').innerHTML = months[month][2]+" "+numbers[numb-1][2]+" rì "+days[day][2];
   document.getElementById('date').innerHTML = numb+"/"+(month+1)+"/2017";
 })();
