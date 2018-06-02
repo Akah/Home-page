@@ -9,7 +9,7 @@
 }
 body{
   background: #0088cc;
-  font-family: 'Dejavu sans';
+  font-family: 'Minecraft';
 }
 a{
   text-decoration: none;
@@ -54,6 +54,7 @@ img{
   z-index: 10;
 }
 div#days{
+  font-family:'Dejavu sans';
   position: relative;
   float:left;
   width:100%;
