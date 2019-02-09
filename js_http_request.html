@@ -1,0 +1,328 @@
+<html>
+  <head>
+     <meta charset="UTF-8"> 
+     <script type = "text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	 <style type="text/css">
+		/* 
+			B3E5FC - light blue
+			81D4FA - blue 
+
+		*/
+		body, #container{
+			margin: 0;
+			padding: 0;
+			/*background-color: #FAFAFA;*/
+            background-color: #212121;
+		}
+
+		#container {
+			width: 100%;
+			height: 100%;
+		}
+
+		#card {
+			width: 400px;
+			height:600px;
+			margin: 0 auto;
+			margin-top:150px;
+			background-color: #EEEEEE;
+			box-shadow: 1px;
+			overflow: hidden
+		}
+
+
+		.group {
+			width:1000px;
+			height:200px;
+			position: relative;
+			float: left;
+		}
+
+		.cloud {
+			width:400px;
+			height:250px;
+			border-radius: 100%;
+			display: block;
+			float: left;
+			margin-left: -70px;
+		}
+
+		.animated {
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+		}
+
+		.foreground {
+			margin-top: -275px;
+			animation-name: foremove;
+			animation-duration: 15s;
+		}
+
+		.midground {
+			margin-top: -235px;
+			animation-name: midmove;
+			animation-duration: 30s;
+		}
+
+		.background {
+			margin-top: 20px;
+			animation-name: backmove;
+			animation-duration: 45s;
+		}
+
+		@keyframes foremove {
+		  from {margin-left: -300px;}
+		  to {margin-left: 30px;}
+		}
+
+		@keyframes midmove {
+		  from {margin-left: -420px;}
+		  to {margin-left: -90px;}
+		}
+
+		@keyframes backmove {
+		  from {margin-left: -220px;}
+		  to {margin-left: 110px;}
+		}
+
+
+		.background .cloud {
+			background-color: #BDBDBD;
+			position: ;
+		}
+
+		.midground .cloud {
+			background-color: #E0E0E0;
+		}
+
+		.foreground .cloud {
+			background-color: #F5F5F5;
+		}
+
+		.left {
+			float: left;
+			width: 135px;
+		}
+
+		.right {
+			float: right;
+			width:265px;
+			margin-left:0;
+		}
+
+		#info {
+			position: fixed;
+			font-family: 'Dejavu Sans';
+			color: #616161;
+		}
+
+		#temp {
+			margin: 0;
+			margin-top: 20px;
+			padding: 0;
+			margin-left: 10px;
+			font-size: 75px;
+			float: left;
+			font-weight: lighter;
+		}
+
+		#date {
+			font-size: 19px;
+			float: right ;
+			margin-top: 30px;
+			margin-right:10px;
+		}
+
+		#weather {
+			font-size: 30px;
+			margin-top: -15px;
+			margin-right:10px;
+			float: right;
+			font-weight: normal;
+		}
+
+
+        /*************** Rain part ***************/
+
+        
+        .droplet {
+            position: absolute;
+	        width:3px;
+	        height:60px;
+	        border-radius:50%;
+	        background-color:#03A9F4;
+	        animation-name: drop;
+            animation-duration: 2s;
+	        animation-iteration-count: infinite;
+	        animation-timing-function: ease-in;
+	    }
+
+	    @keyframes drop {
+	        from{top:0px}
+	        to{top:700px}
+	    }
+
+        #rain-back {
+            position: relative;
+            margin-left:0;
+        }
+
+        #rain-front {
+            position: relative;
+            margin-left:0;
+        }
+        
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="card">
+			<div class="group background animated">
+				<div class="cloud"></div>
+				<div class="cloud"></div>
+				<div class="cloud"></div>
+			</div>
+            <div id="rain-back"></div>
+			<div class="group midground animated">
+				<div class="cloud"></div>
+				<div class="cloud"></div>
+				<div class="cloud"></div>
+			</div>
+            <div id="rain-front"></div>
+			<div class="group foreground animated">
+				<div class="cloud"></div>
+				<div class="cloud"></div>
+				<div class="cloud"></div>
+			</div>
+			<div id="info">
+				<div class="left">
+					<p id="temp">N/A</p>
+				</div>
+				<div class="right">
+					<p id="date">error forming date</p>
+					<p id="weather">error loading weather</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script>
+		(function(){
+			const url = 'http://api.openweathermap.org/data/2.5/weather?q=Morley,uk&APPID=69c3d3b7fa871e896f4df24abdd0462d';
+			$.getJSON(url).success( function(data){
+				main(data);
+			});
+		})();
+
+		var FormattedTime = function(date){
+
+			function format(i){
+				return i<10 ? "0"+i : i;
+			}
+
+			var time = new Date(date*1000);
+			this.hours = format(time.getHours());
+			this.minutes = format(time.getMinutes());
+		}
+
+		function nextSun(data){
+	        if((data.sys.sunrise*1000) > new Date()) {
+				return new FormattedTime(data.sys.sunrise);
+			} else {
+				return new FormattedTime(data.sys.sunset);
+			}
+		}
+
+		function main(data){
+			var date  = new Date();
+			var numb  = date.getUTCDate();
+			var month = date.getMonth();
+			var day   = date.getDay();
+            
+			var days = [
+		    	"Sunnandæg",
+		    	"Mōnandæg",
+		    	"Tīwesdæg",
+		    	"Ƿōdnesdæg",
+		    	"Þunresdæg",
+		    	"Frigedæg",
+		    	"Sæternesdæg",
+		  	];
+
+		  	var months = [
+				"Æfterra geola",
+				"solmōnað",
+				"hreðmōnað",				
+				"eastermōnað",
+				"ðrīmilcemōnað",
+				"Ærra liða",
+				"Æfterra liða",
+				"Ƿeodmōnað",
+				"Hāligmōnað",
+				"Ƿinterfylleð",
+				"blōtmōnað",
+				"Ærra geola",
+			];
+
+			var t = data.main.temp - 273.15;
+			var v = data.wind.speed;
+			var type = data.weather[0].main;
+			var apparent = 13.12 + 0.625 * t - 11.37 * Math.pow(v,0.16) + 0.3965 * t * Math.pow(v,0.16);
+            console.log("apparent: "+apparent);
+            console.log("wind speed:"+v);
+            console.log(type);
+            console.log(data.weather);
+
+            switch (type) {
+            case "Rain":
+                type = "Regn";
+                break;
+            case "Clouds":
+                type = "Ƿolcen";
+                break;
+            default:
+                break;
+            }
+
+			t = Math.round(t);
+			document.getElementById('temp').innerHTML = t + "°";
+			document.getElementById('weather').innerHTML = type;
+			document.getElementById('date').innerHTML = days[day] + " " + numb + " " + months[month];
+
+            if (type === "regn") {
+                rain();
+            }
+
+		}
+
+      function rain(){
+          console.log("raining");
+          var Droplet = function(position, delay, front){
+              var rain;
+              var position = position;
+		      var element = document.createElement("div");
+		      element.setAttribute("class","droplet");
+		      element.style.left = position+"px"; 
+		      element.style.animationDelay = delay+"s";
+              if (front) {
+                  element.style.animationDuration = "1s";
+                  rain = document.getElementById("rain-front");
+              } else {
+                  element.style.backgroundColor = "#2196F3";
+                  rain = document.getElementById("rain-back");
+              }
+		      rain.appendChild(element);
+          }
+
+          function rand(max){
+              return  Math.floor((Math.random() * max) + 1);
+          }
+
+          for (i=0; i<10; i++) {
+              new Droplet(rand(400), rand(20)/10, true);
+              new Droplet(rand(400), rand(30)/10, false);
+              new Droplet(rand(400), rand(30)/10, false);
+          }
+      }   
+	</script>
+</body>
+</html>
